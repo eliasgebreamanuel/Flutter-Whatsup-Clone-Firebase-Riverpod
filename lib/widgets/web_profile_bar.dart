@@ -19,6 +19,7 @@ class WebProfileBar extends StatelessWidget {
         color: webAppBarColor
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const CircleAvatar(
             backgroundImage: NetworkImage('https://images.unsplash.com/photo-1707343888207-2ffddba86fd5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D',
@@ -26,8 +27,13 @@ class WebProfileBar extends StatelessWidget {
             ),
             radius: 20
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.comment, color: Colors.grey,)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert, color: Colors.grey))
+          Row(
+            children: [
+              IconButton(onPressed: () {}, icon: const Icon(Icons.comment, color: Colors.grey,)),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert, color: Colors.grey))
+
+            ],
+          ),
         ],
       ),
     );

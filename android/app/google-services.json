@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "762152160697",
+    "project_id": "whatsapp-backend-c80b4",
+    "storage_bucket": "whatsapp-backend-c80b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762152160697:android:4ddf5648429f8b87697a68",
+        "android_client_info": {
+          "package_name": "com.example.flutter_whatsapp_clone_firebase_riverpod"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfJ7a2VdByqzeL4bigNGuUrqxGolYOnu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

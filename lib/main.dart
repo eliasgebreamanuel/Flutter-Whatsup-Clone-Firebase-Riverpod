@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/colors.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/features/landing/screens/landing_screen.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/firebase_options.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/responsive/responsive_layout.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/router.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/screens/mobile_screen_layout.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/screens/web_screen_layout.dart';
 
@@ -24,9 +27,14 @@ class MyApp extends StatelessWidget {
       title: 'Whatsup Clone',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: backgroundColor
+        scaffoldBackgroundColor: backgroundColor,
+        appBarTheme: const AppBarTheme(
+          color: appBarColor
+        )
       ),
-      home: ResponsiveLayout(mobileScreenLayout: MobileScreenLayout(), webScreenLayout: WebScreenLayout(),)
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const LandingScreen()
+      //  ResponsiveLayout(mobileScreenLayout: MobileScreenLayout(), webScreenLayout: WebScreenLayout(),)
     );
   }
 }

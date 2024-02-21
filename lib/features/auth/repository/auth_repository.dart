@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/common/utils/utils.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/screens/otp_screen.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/screens/user_information_screen.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepository(auth: FirebaseAuth.instance, firestore: FirebaseFirestore.instance));
 
@@ -27,6 +28,20 @@ class AuthRepository {
         Navigator.pushNamed(context, OTPScreen.routeName, arguments: verificationId);
       }), codeAutoRetrievalTimeout: (String verificationId) {});
     } on FirebaseAuthException catch (e){
+      showSnackBar(context: context, content: e.message!);
+    }
+  }
+
+  void verifyOTP({
+    required BuildContext context,
+    required String verificationId,
+    required String userOTP
+  }) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: userOTP);
+      await auth.signInWithCredential(credential);
+      Navigator.pushNamedAndRemoveUntil(context, UserInformationScreen.routeName, (route) => false);
+    } on FirebaseAuthException catch (e) {
       showSnackBar(context: context, content: e.message!);
     }
   }

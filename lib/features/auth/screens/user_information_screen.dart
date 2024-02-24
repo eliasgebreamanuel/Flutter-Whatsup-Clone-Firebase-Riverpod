@@ -1,17 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/common/utils/utils.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/controller/auth_controller.dart';
 
-class UserInformationScreen extends StatefulWidget {
+class UserInformationScreen extends ConsumerStatefulWidget {
   static const String routeName = '/user-information';
   const UserInformationScreen({super.key});
-
-  @override
-  State<UserInformationScreen> createState() => _UserInformationScreenState();
+ConsumerState<UserInformationScreen> createState() => _UserInformationScreenState();
 }
 
-class _UserInformationScreenState extends State<UserInformationScreen> {
+class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
   final TextEditingController nameController = TextEditingController();
   File? image;
   @override
@@ -27,6 +27,14 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
       
     });
   }
+  void storeUserData() async {
+    String name = nameController.text.trim();
+
+    if(name.isNotEmpty) {
+      ref.read(authControllerProvider).saveUserDataToFirebase(context, name, image);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -66,7 +74,7 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                       )
                     )
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.done),)
+                  IconButton(onPressed: storeUserData, icon: Icon(Icons.done),)
                 ],
               )
             ],

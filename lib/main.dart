@@ -3,6 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/colors.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/common/widgets/error.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/common/widgets/loader.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/controller/auth_controller.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/features/landing/screens/landing_screen.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/firebase_options.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/responsive/responsive_layout.dart';
@@ -18,12 +21,12 @@ void main() async {
   runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Whatsup Clone',
       debugShowCheckedModeBanner: false,
@@ -34,7 +37,14 @@ class MyApp extends StatelessWidget {
         )
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const LandingScreen()
+      home: ref.watch(userDataAuthProvider).when(data: (user) {
+        if(user == null) {
+          return const LandingScreen();
+        }
+        return const MobileScreenLayout();
+      }, error: (err, trace) {
+        return ErrorScreen(error: err.toString());
+      }, loading: () => const Loader())
       //  ResponsiveLayout(mobileScreenLayout: MobileScreenLayout(), webScreenLayout: WebScreenLayout(),)
     );
   }

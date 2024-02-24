@@ -3,6 +3,7 @@ import 'package:flutter_whatsapp_clone_firebase_riverpod/common/widgets/error.da
 import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/screens/login_screen.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/screens/otp_screen.dart';
 import 'package:flutter_whatsapp_clone_firebase_riverpod/features/auth/screens/user_information_screen.dart';
+import 'package:flutter_whatsapp_clone_firebase_riverpod/features/select_contacts/screens/select_contact_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch(settings.name) {
@@ -15,6 +16,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       ));
     case UserInformationScreen.routeName:
       return MaterialPageRoute(builder: (context) => const UserInformationScreen());
+     case SelectContactsScreen.routeName:
+      return MaterialPageRoute(builder: (context) => const SelectContactsScreen());
+        
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold(
         body: ErrorScreen(error: 'This page doesn\'t exist')
